@@ -3,4 +3,6 @@
     <string name="iv_desc">Its is a image</string>
     <string name="emoji_play">Emoji Play!</string>
     <string name="go">GO</string>
+    <string name="error">Sorry! The file was not deleted! Try again!</string>
+    <string name="saved_message">Image Saved at %1$s</string>
 </resources>

@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final static int REQUEST_STORAGE_PERMISSION = 1;
     private final static int REQUEST_CAMERA_CODE = 1;
-    private final static String FILE_PROVIDER_AUHTHORITY = "com.example.android.fileprovider";
+    private final static String FILE_PROVIDER_AUTHORITY = "com.example.android.fileprovider";
 
     //views
     private ImageView mImageView;
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 //location
                 mTempPhotoPath = photoFile.getAbsolutePath();
                 //uri
-                Uri photoUri = FileProvider.getUriForFile(this, FILE_PROVIDER_AUHTHORITY, photoFile);
+                Uri photoUri = FileProvider.getUriForFile(this, FILE_PROVIDER_AUTHORITY, photoFile);
                 //add uri to the camera so that it can stored the capture image
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);
 
@@ -160,17 +160,42 @@ public class MainActivity extends AppCompatActivity {
      * Saves the image clicked
      */
     public void saveMe(View view) {
+        //delete the old temp file
+        BitMapUtils.deleteImageFile(this,mTempPhotoPath);
+
+        //save image file
+        BitMapUtils.saveImage(this,mResultImageBitmap);
     }
 
     /**
      * Helps to share the image in bitmap format
      */
     public void shareMe(View view) {
+        //delete the old temp file
+        BitMapUtils.deleteImageFile(this,mTempPhotoPath);
+
+        //save image file
+        String savedPath = BitMapUtils.saveImage(this,mResultImageBitmap);
+
+        //share image file
+        BitMapUtils.shareImage(this,savedPath);
+
     }
 
     /**
      * Removes the image and reset
      */
     public void clearImage(View view) {
+        //button visibility3.
+        mImageView.setImageResource(0);
+        mClearFab.setVisibility(View.GONE);
+        mSaveFab.setVisibility(View.GONE);
+        mShareFab.setVisibility(View.GONE);
+        mTitleTv.setVisibility(View.VISIBLE);
+        mEmojiBtn.setVisibility(View.VISIBLE);
+
+        //delete
+        BitMapUtils.deleteImageFile(this,mTempPhotoPath);
+
     }
 }
