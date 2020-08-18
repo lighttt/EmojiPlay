@@ -152,6 +152,9 @@ public class MainActivity extends AppCompatActivity {
         //resample to fit imageview
         mResultImageBitmap = BitMapUtils.resamplePic(this,mTempPhotoPath);
 
+        //detect the faces
+        EmojiPlayer.detectFaces(this,mResultImageBitmap);
+
         //set in iv
         mImageView.setImageBitmap(mResultImageBitmap);
     }
